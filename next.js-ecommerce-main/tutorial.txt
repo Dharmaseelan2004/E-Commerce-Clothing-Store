@@ -1,0 +1,179 @@
+. npx create-next-app@lastest --typescript 
+
+TAILWIND
+. Install Tailwind in Next
+. use @apply to apply tailwind in css class in global.css
+
+
+LAYOUT
+. Create Layout.tsx and give wrap in <Layout> <Component {...pageProps}/> <Layout/> in _app.tsx
+ OBS: u can let Layout with unic title in _app.tsx or wrap ever each page with <Layout title="page's title"><content></Layout>
+. config Layout.tsx
+
+
+DATA BANK
+. create Utils/data.ts with data model type 
+. add images in public/images
+
+
+COMPONENT PRODUCT 
+. building component/ProductItem.tsx and add data path in all elements
+. Create model/interface to the Products
+
+
+
+ CREATE DINAMYC PRODUCT PAGE 
+. Create product/[slug].tsx and apply the logic in .find() to  redirect item to slug page
+
+. install:  npm i -D @types/react
+
+
+  USECONTEXT AND REDUCE
+
+. Add utils/Store.tsx and create function reduce and createContext mix both and export to _app.tsx  and wrap 
+<StoreProvider><Layout><Component {...pageProps} /></Layout></StoreProvider> in _app.tsx
+
+. In function Reduce put the all actions to manage item in CART as 'CART_REMOVE_ITEM' and 'CART_ADD_ITEM'
+
+. In [slug].tsx import StoreContext to use "DISPATCH" and create a function to add product in Cart,  use it and set this function in onClick event 
+. In Layout.tsx import StoreContext to use "STATE" destructure the {cart} and create logic to render the length of product beside of Cart in header
+
+ADD PRODUCT IN CART 
+. In "ProductItem.tsx" and "[slug].tsx" add logic using state in  function addToCartHandler() to add item from same product
+
+CART PAGE 
+. create page/cart.tsx 
+. install react icons: 'npm install react-icons --save'
+. import icon from: https://react-icons.github.io/react-icons
+. create functions using reduce to use in onclick event in button and use in <select> tag
+
+
+SAVE CART IN COOKIES 
+. install cookies: npm install js-cookie@2.2.1
+. install too: npm install @types/js-cookie
+. Store.tsx import and set cookies using Cookie.get and Cookie.set
+. In cart.tsx export component use dynamic an Promise
+. In Layout.tsx apply the useState and useEffect to control the mult render in page
+. In eslintrc.json add: "env": {"browser":true, "node":true , "es6":true},
+
+
+CREATE LOGIN
+. create pages/login.tsx
+. buiding form in login.tsx
+. to star building validation install: npm install react-hook-form  
+. npm install yup
+. npm install formik 
+. in login.tsx use useForm()
+
+
+CONNECT TO MONGODB 
+. npm install mongodb  
+. create a new cluster 
+. set username and password
+. set ip 0.0.0.0/0   all
+. create new collections
+. create .env file and paste path mongodb_uri
+. test the connection data base using mongo db compass 
+. copy the address from .env and paste it in mongodb compass to connect
+. install bcrypt :npm install bcrypt -g 
+. add users in data.ts
+. create api/seed.ts to text connection and call it in localhost:3000/api/seed 
+. open mongo compass to connection running
+
+NEXT AUTH LOGIN 
+. install : npm install next-auth
+. create : api/auth/[...nextauth].ts
+. add logic into Login.tsx handleSubmit()
+. create utils/erros.js with getError() and export to Login.tsx
+. install: npm install react-toastify 
+. Import ToastContainer in Layout.tsx and apply status/useSession() in navBar
+. Import toast in Login.tsx
+. in _app.tsx wrap <Component> with <SessionProvider>
+. in _app.tsx create <Auth/> and create  conditional to envolve <Component/> case user be logged
+
+ADD USER MENU 
+. access: headlessui.com
+. install: npm install @headlessui/react
+. import in Layout.tsx : import { Menu } from '@headlessui/react'
+. create: component/DropdownLink.tsx
+. and buiding the dropdown in Layout
+
+
+CREATE SHIPPING SCREEN 
+. create page/shipping.tsx
+. create components/CheckoutWizard.tsx
+. in shipping.tsx create a Form using Formik
+. add new case 'SAVE_SHIPPING_ADDRESS' in reduce in Store.tsx 
+. add: ShippingScreen.auth = true in shipping.tsx 
+. add  shippingAddress: {} in initialState in Store.tsx
+
+
+CREATE UNAUTHORIZED PAGE
+. create page/unauthorized.tsx to redirect when the user logged out.
+.in shipping.tsx add after cookies.set  
+  router.push('/payment')
+
+PAYMENT METHOD 
+. create page/payment.tsx 
+
+VERIFICATION STOCK 
+. create page/api/product/[id].tsx
+. in index.tsx add function addToCartHandler() to check if is product in stock and export to component/ProductItem.tsx
+. In index.tsx <ProductItem addToCartHandler={addToCartHandler} />
+. in cart.tsx in updateCartHandler() use axios to pull item quantity and create conditional to show toaster error ou success
+. in [slug].tsx in addToCartHandler() use axios to pull item quantity and create conditional to show toaster error
+. in index.tsx in addToCartHandler() use axios to pull item quantity and create conditional to show toaster error
+
+CREATE PLACE ORDER SCREEN 
+. create page/placeorder.tsx
+. create page/api/orders/index.ts
+. create models/Order.ts 
+
+CREATE ORDER SCREEN
+  . create page/api/[id]/index.js
+  . create page/order/[id].tsx
+
+CREATE REGISTER SCREEN
+. create page/register.tsx
+. create page/api/auth/signup.js
+
+CREATE API IN PAYPAL 
+. https://developer.paypal.com/dashboard/applications/sandbox
+. create APP 
+. copy Client_ID and paste in .env
+. install: npm install @paypal/react-paypal-js
+. create api/keys/paypal.js 
+
+CREATE ORDER HISTORY 
+. create page/order-history.tsx
+. create page/api/orders/history.js
+
+CREATE UPDATE USER PROFILE 
+. create page/profile.tsx
+. create page/auth/update.ts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
